@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+public interface TaskDao {
+
+    @Query("SELECT * FROM Task")
+    LiveData<List<Task>> getTasks();
+
+    @Insert
+    void insertTask(Task task);
+
+    @Query("DELETE FROM Task WHERE id = :taskId")
+    void deleteTask(long taskId);
+
+    @Query("SELECT * FROM Task ORDER BY name ASC")
+    LiveData<List<Task>> getTasksAlphabeticalAZ();
+
+    @Query("SELECT * FROM Task ORDER BY name DESC")
+    LiveData<List<Task>> getTasksAlphabeticalZA();
+
+    @Query("SELECT * FROM Task ORDER BY creationTimestamp DESC")
+    LiveData<List<Task>> getTasksNewToOld();
+
+    @Query("SELECT * FROM Task ORDER BY creationTimestamp ASC")
+    LiveData<List<Task>> getTasksOldToNew();
+
+
+}

@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.cleanup.todoc"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        useLibrary 'android.test.base'
+        useLibrary 'android.test.mock'
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        disable 'RestrictedApi'
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+        unitTests.includeAndroidResources = true
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    //ROOM
+    implementation 'androidx.room:room-runtime:2.2.5'
+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+    //VIEW MODEL & LIVE DATA
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    // Gradle dependency on Stetho
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    //TEST
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    androidTestImplementation "androidx.test:core:1.2.0"
+    testImplementation 'androidx.test:core:1.2.0'
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    androidTestImplementation "androidx.test:runner:1.2.0"
+    testImplementation 'org.robolectric:robolectric:4.3'
+
+    androidTestImplementation "com.android.support:support-annotations:28.0.0"
+    testImplementation "io.mockk:mockk-android:1.9.3"
+    testImplementation 'org.robolectric:robolectric:4.3'
+    testImplementation 'com.agoda.kakao:kakao:2.1.0'
+
+    androidTestImplementation 'androidx.test:core:1.2.0'
+
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.ext:truth:1.2.0'
+    androidTestImplementation 'com.google.truth:truth:0.42'
+
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-web:3.2.0'
+    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.2.0'
+
+
+    androidTestImplementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
+
+    implementation 'com.google.android.material:material:1.1.0'
+}
