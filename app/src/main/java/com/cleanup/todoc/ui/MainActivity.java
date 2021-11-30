@@ -101,22 +101,24 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
         listTasks = findViewById(R.id.list_tasks);
         lblNoTasks = findViewById(R.id.lbl_no_task);
-
+        configureViewModel();
+        if (allProjects == null) this.getProjects();
 
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listTasks.setAdapter(adapter);
 
         findViewById(R.id.fab_add_task).setOnClickListener(view -> showAddTaskDialog());
 
-        configureViewModel();
-        getProjects();
-        getTasks();
         mTaskViewModel.getTaskSorted().observe(this, this::updateTasks);
-        mTaskViewModel.getTasks().observe(this, this::updateTasks);
-        mTaskViewModel.getProjects().observe(this, this::updateProjects);
-
-
     }
+
+        private void configureViewModel() {
+            ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(this);
+            mTaskViewModel = new ViewModelProvider(this, viewModelFactory). get(TaskViewModel.class);
+            mTaskViewModel.init();
+        }
+
+
     private void getTaskSorted(TaskViewModel.SortTaskList task_order) {
         this.mTaskViewModel.getTaskSorted().removeObservers(this);
         this.mTaskViewModel.sortTaskList = task_order;
@@ -139,11 +141,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     }
 
 
-    private void getTasks() { mTaskViewModel.getTasks().getValue();
-    }
-
     private void getProjects() {
-        mTaskViewModel.getProjects().getValue();
+        mTaskViewModel.getProjects().observe(this, this::updateProjects);
     }
 
     private void updateProjects(List<Project> allProjects) {
@@ -151,11 +150,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         configureAdapter();
     }
 
-    private void configureViewModel() {
-        ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(this);
-        mTaskViewModel = new ViewModelProvider(this, viewModelFactory). get(TaskViewModel.class);
-        mTaskViewModel.init();
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -172,11 +167,10 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         } else if (id == R.id.filter_alphabetical_inverted) {
             getTasksInverted();
         } else if (id == R.id.filter_oldest_first) {
-            getTasksRecentFirst();
-        } else if (id == R.id.filter_recent_first) {
             getTasksOldFirst();
+        } else if (id == R.id.filter_recent_first) {
+            getTasksRecentFirst();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
