@@ -123,12 +123,6 @@ public class MainActivityInstrumentedTest {
         onView(withId(android.R.id.button1)).perform(click());
 
 
-        onView(withRecyclerView(R.id.list_tasks).atPositionOnView(0, R.id.lbl_task_name))
-                .check(matches(withText("aaa Tâche example")));
-        onView(withRecyclerView(R.id.list_tasks).atPositionOnView(1, R.id.lbl_task_name))
-                .check(matches(withText("zzz Tâche example")));
-        onView(withRecyclerView(R.id.list_tasks).atPositionOnView(2, R.id.lbl_task_name))
-                .check(matches(withText("hhh Tâche example")));
 
         // Sort alphabetical
         onView(withId(R.id.action_filter)).perform(click());
