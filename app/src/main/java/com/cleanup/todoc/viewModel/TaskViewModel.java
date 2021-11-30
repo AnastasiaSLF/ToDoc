@@ -54,9 +54,6 @@ public class TaskViewModel extends ViewModel {
         return projects;
     }
 
-    public LiveData<List<Task>> getTasks() {
-        return taskDataSource.getTasks();
-    }
 
     public void createTask(final Task task) {
         executor.execute(() -> taskDataSource.createTask(task));
